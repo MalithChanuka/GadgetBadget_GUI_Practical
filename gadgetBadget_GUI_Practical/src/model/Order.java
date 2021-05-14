@@ -12,7 +12,7 @@ private static Connection connect() {
 			
 			Class.forName("com.mysql.jdbc.Driver");
 			
-			con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/it18213768", "root", "");
+			con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/it18213768?useTimezone=true&serverTimezone=UTC", "root", "");
 			
 			System.out.println("succsess");
 		} catch (Exception e) {
