@@ -71,72 +71,59 @@ public String insertOrder(String order_code, String customer_id, String customer
 	 } 
 	
 	//Read orders
-	 public String readOrder() 
-	 { 
-		 String output = ""; 
+public String readOrder() 
+{ 
+	 String output = ""; 
 
-		 try
-		 { 
-			 Connection con = connect(); 
-			 if (con == null) 
-			 {
-				 return "Error while connecting to the database for reading."; 
-			 } 
-			 
-			 // Prepare the html table to be displayed
-			 output = "<table class='container-fluid' border='1'>"+ 
-			 "<thead><th>Order ID</th>" + 
-			 "<th>Order Code</th>" + 
-			 "<th>Customer ID</th>" + 
-			 "<th>Customer Email</th>" + 
-			 "<th>Customer Name</th>" +
-			 "<th>Total Amount</th>" +
-			 "<th>Card No</th>" +
-			 "<th>CVV No</th>" +
-			 "<th>Update</th><th>Remove</th></thead>"; 
-		 
-			 
-			 String query = "SELECT * FROM order_gui"; 
-			 Statement stmt = con.createStatement(); 
-			 ResultSet rs = stmt.executeQuery(query); 
-			 // iterate through the rows in the result set
-			 while (rs.next()) 
-			 { 
-				 String orderID = Integer.toString(rs.getInt("orderID")); 
-				 String orderCode = rs.getString("orderCode"); 
-				 String customerID = rs.getString("customerID");  
-				 String customerEmail = rs.getString("customerEmail"); 
-				 String customerName = rs.getString("customerName");
-				 String orderTotalAmount = Double.toString(rs.getDouble("orderTotalAmount")); 
-				 String cardNo = rs.getString("cardNo");
-				 String cvvNo = Integer.toString(rs.getInt("cvvNo"));
-				 
-				 // Add into the html table
-				 output += "<td>" + orderID + "</td>";
-				 output += "<td>" + orderCode + "</td>";
-				 output += "<td>" + customerID + "</td>";   
-				 output += "<td>" + customerEmail + "</td>"; 
-				 output += "<td>" + customerName + "</td>";
-				 output += "<td>" + orderTotalAmount + "</td>"; 
-				 output += "<td>" + cardNo + "</td>"; 
-				 output += "<td>" + cvvNo + "</td>"; 					 
-				 
-				 
-				 // buttons
-				 output += "<td><input name='btnUpdate' type='button' value='Update' class='btnUpdate btn btn-secondary'></td>"
-						 + "<td><button class='btnRemove btn btn-danger' name='btnRemove' id ='btnRemove' value='"+ orderID +"' >Remove</button></td></tr>";
-			 } 
-			 	 con.close(); 
-			 	 // Complete the html table
-			 	 output += "</table>"; 
+	 try  { 
+		 Connection con = connect();
+		 if (con == null)  {return "Error while connecting to the database for reading."; } 
+
+		 output = "<div class='container'><table border='1' style='text-align:center'><tr>"
+		 + "<th style='padding:10px; text-align:center;'>Order Code</th>"
+		 + "<th style='padding:10px; text-align:center;'>Customer ID</th>" +
+		 "<th style='padding:10px; text-align:center;'>Customer Email</th>" + 
+		 "<th style='padding:10px; text-align:center;'>Customer Name</th>" + 
+		 "<th style='padding:10px; text-align:center;'>Total Amount</th>" +
+		 "<th style='padding:10px; text-align:center;'>Card No</th>" +
+		 "<th style='padding:10px; text-align:center;'>CVV No</th>" +
+		 "<th style='padding:10px; text-align:center;'>Update</th><th style='padding:10px; text-align:center;'>Remove</th></tr>"; 
+	 
+		 String query = "SELECT * FROM order_gui"; 
+		 Statement statement = con.createStatement(); 
+		 ResultSet resultSet = statement.executeQuery(query); 
+
+		 while (resultSet.next())  { 
+			 String orderID = Integer.toString(resultSet.getInt("orderID")); 
+			 String orderCode = resultSet.getString("orderCode"); 
+			 String customerID = resultSet.getString("customerID"); 
+			 String customerEmail = resultSet.getString("customerEmail"); 
+			 String customerName = resultSet.getString("customerName");
+			 String orderTotalAmount = Double.toString(resultSet.getDouble("orderTotalAmount"));
+			 String cardNo = resultSet.getString("cardNo");
+			 String cvvNo = resultSet.getString("cvvNo");
+
+			 output += "<tr><td style='padding:10px; text-align:center;'>" + orderCode + "</td>"; 
+			 output += "<td style='padding:10px; text-align:center;'>" + customerID + "</td>"; 
+			 output += "<td style='padding:10px; text-align:center;'>" + customerEmail + "</td>";
+			 output += "<td style='padding:10px; text-align:center;'>" + customerName + "</td>"; 
+			 output += "<td style='padding:10px; text-align:center;'>" + orderTotalAmount + "</td>"; 
+			 output += "<td style='padding:10px; text-align:center;'>" + cardNo + "</td>"; 
+			 output += "<td style='padding:10px; text-align:center;'>" + cvvNo + "</td>"; 
+
+			 output += "<td><input name='btnUpdate' type='button' value='Update' class='btnUpdate btn btn-secondary'></td>"
+					 + "<td><button class='btnRemove btn btn-danger' name='btnRemove' id ='btnRemove' value='"+ orderID +"' >Remove</button></td></tr>";
 		 } 
-		 catch (Exception e) 
-		 { 
-			 output = "Error while reading the order"; 
-			 System.err.println(e.getMessage()); 
-		 } 
-	 	 return output; 
+		 con.close(); 
+	 	 output += "</table></div>"; 
 	 } 
+	 catch (Exception e)  { 
+		 output = "Error while reading the order details...!"; 
+		 System.err.println(e.getMessage()); 
+	 } 
+	 return output; 
+} 
+
 		//Update orders
 	 public String updateOrder(String orderID,String orderCode, String customerID , String customerEmail, String customerName , String orderTotalAmount, String cardNo, String cvvNo)
 		{ 
