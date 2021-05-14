@@ -50,7 +50,7 @@ public class OrderAPI extends HttpServlet {
 
 		response.getWriter().write(outputString);
 		
-		doGet(request, response);
+		//doGet(request, response);
 	}
 
 	/**

@@ -160,7 +160,7 @@ public String readOrder()
 			 } 
 			 catch (Exception e) 
 			 { 
-				 //output = "Error while updating the item."; 
+				 //output = "Error while updating the order."; 
 				 output = "{\"status\":\"error\", \"data\": \"Error while updating the order.\"}"; 
 				 System.err.println(e.getMessage()); 
 				 System.out.println(e);

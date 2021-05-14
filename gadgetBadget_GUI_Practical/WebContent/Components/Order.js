@@ -16,7 +16,7 @@ $(document).on("click", "#btnSave", function(event) {
 	$("#alertError").hide();
 	
 	// Form validation-------------------
-	var status = validateItemForm();
+	var status = validateOrderForm();
 	if (status != true) {
 		$("#alertError").text(status);
 		$("#alertError").show();
@@ -32,7 +32,7 @@ $(document).on("click", "#btnSave", function(event) {
 		data : $("#ORDER").serialize(),
 		dataType : "text",
 		complete : function(response, status) {
-			onItemSaveComplete(response.responseText, status);
+			onOrderSaveComplete(response.responseText, status);
 		
 			$("#alertSuccess").fadeTo(2000, 500).slideUp(500, function() {
 				$("#alertSuccess").slideUp(500);
@@ -42,7 +42,7 @@ $(document).on("click", "#btnSave", function(event) {
 
 });
 
-function onItemSaveComplete(response, status) {
+function onOrderSaveComplete(response, status) {
 	
 	if (status == "success") {
 		
@@ -83,7 +83,7 @@ $(document).on("click", ".btnRemove", function(event) {
 		data : "orderID=" + event.target.value,
 		dataType : "text",
 		complete : function(response, status) {
-			onItemDeleteComplete(response.responseText, status);
+			onOrderDeleteComplete(response.responseText, status);
 			//window.location.reload(true);
 			$("#alertSuccess").fadeTo(2000, 500).slideUp(500, function() {
 				$("#alertSuccess").slideUp(500);
@@ -92,7 +92,7 @@ $(document).on("click", ".btnRemove", function(event) {
 	});
 });
 
-function onItemDeleteComplete(response, status) {
+function onOrderDeleteComplete(response, status) {
 	
 	if (status == "success") {
 		
@@ -137,7 +137,7 @@ $(document).on("click",".btnUpdate",function(event)
 
 
 // CLIENTMODEL=========================================================================
-function validateItemForm() {
+function validateOrderForm() {
 	
 	// Order Code
 	if ($("#orderCode").val().trim() == "") {
