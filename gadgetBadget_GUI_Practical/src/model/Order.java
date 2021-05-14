@@ -70,7 +70,7 @@ public String insertOrder(String order_code, String customer_id, String customer
 	 	return output; 
 	 } 
 	
-	//Read orders
+	//Read Orders in DB
 public String readOrder() 
 { 
 	 String output = ""; 
